@@ -15,7 +15,7 @@ mypy = ">=1.9.0"
 pytest = ">=8.1.1"
 pytest-cov = ">=4.1.0"
 ruff = ">=0.3.2"
-tomli = {version = ">=2.0.1", python = "<3.11"}
+tomli = { version = ">=2.0.1", python = "<3.11" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -28,6 +28,10 @@ disallow_untyped_defs = true
 [[tool.mypy.overrides]]
 module = ["tests.*"]
 disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = ["pydeps.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -43,7 +47,7 @@ fix = true
 
 [tool.ruff.lint]
 select = ["E", "F", "UP", "I001", "T201", "T203"]
-ignore=[
+ignore = [
   # Recommended ignores by ruff when using formatter
   "E501",
   "W191",
