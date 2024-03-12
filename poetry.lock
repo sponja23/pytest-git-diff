@@ -188,6 +188,20 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "pydeps"
+version = "1.12.19"
+description = "Display module dependencies"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pydeps-1.12.19-py3-none-any.whl", hash = "sha256:5626bf05c06ec9c1e2221c7c861f6e0ea3be89b864a67afef76988eebf32b386"},
+    {file = "pydeps-1.12.19.tar.gz", hash = "sha256:5131629a91571c71416cd8577dddc9628904980b715d8653740d688a3b92312d"},
+]
+
+[package.dependencies]
+stdlib-list = "*"
+
+[[package]]
 name = "pytest"
 version = "8.1.1"
 description = "pytest: simple powerful testing with Python"
@@ -254,6 +268,24 @@ files = [
 ]
 
 [[package]]
+name = "stdlib-list"
+version = "0.10.0"
+description = "A list of Python Standard Libraries (2.7 through 3.12)."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "stdlib_list-0.10.0-py3-none-any.whl", hash = "sha256:b3a911bc441d03e0332dd1a9e7d0870ba3bb0a542a74d7524f54fb431256e214"},
+    {file = "stdlib_list-0.10.0.tar.gz", hash = "sha256:6519c50d645513ed287657bfe856d527f277331540691ddeaf77b25459964a14"},
+]
+
+[package.extras]
+dev = ["build", "stdlib-list[doc,lint,test]"]
+doc = ["furo", "sphinx"]
+lint = ["black", "mypy", "ruff"]
+support = ["sphobjinv"]
+test = ["coverage[toml]", "pytest", "pytest-cov"]
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -278,4 +310,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "fc3cf0f4d648c7536b009ee0768ea9c97a52a7f4531908cfa8fd568db57b9bfb"
+content-hash = "0d07d5a04e3aeee08365ed210ca73aa1049d1a1113cb26caf084b70b4e762c45"
