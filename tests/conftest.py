@@ -1,7 +1,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Any, Tuple
+from typing import Any, Dict, Tuple
 
 import pytest
 
@@ -17,7 +17,7 @@ package_test_case_paths = list((TEST_DIRECTORY / "package_test_cases").iterdir()
 @pytest.fixture(params=package_test_case_paths, scope="session", ids=lambda p: p.name)
 def package_test_case(
     request: pytest.FixtureRequest,
-) -> Tuple[Path, dict[str, ModuleDependencyInfo]]:
+) -> Tuple[Path, Dict[str, ModuleDependencyInfo]]:
     test_case_path = request.param
 
     # The actual package is in a subdirectory of the test case directory with the same name
@@ -26,7 +26,7 @@ def package_test_case(
     # Along with the package, there is a file called `expected_dependencies.json` which
     # contains the expected dependencies of the package
     with open(test_case_path / "expected_dependencies.json") as f:
-        expected_dependencies: dict[str, Any] = json.load(f)
+        expected_dependencies: Dict[str, Any] = json.load(f)
 
     for name, properties in expected_dependencies.items():
         # The name is not stored in the JSON file, so we add it here
