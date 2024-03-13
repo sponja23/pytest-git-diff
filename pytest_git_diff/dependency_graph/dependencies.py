@@ -20,7 +20,7 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
     Get the dependency dict output of pydeps for a given path
 
     Args:
-        root_path: The path to the root of the project
+        path: The path to the root of the project
 
     Returns:
         A dictionary of the form:
@@ -104,10 +104,13 @@ def get_dependencies(project_root: Path) -> Dict[str, ModuleDependencyInfo]:
         A dictionary mapping module names to their dependency information
     """
     dependency_dict = pydeps_dependency_dict(project_root)
+
+    absolute_project_root = project_root.resolve()
+
     return {
         module_name: ModuleDependencyInfo.from_pydeps_dict_entry(
             entry,
-            project_root=project_root,
+            project_root=absolute_project_root,
         )
         for module_name, entry in dependency_dict.items()
     }

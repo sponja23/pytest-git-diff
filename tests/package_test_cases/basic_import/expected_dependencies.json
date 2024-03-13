@@ -1,0 +1,17 @@
+{
+  "basic_import": {
+    "dependencies": [],
+    "dependents": [],
+    "path": "__init__.py"
+  },
+  "basic_import.a": {
+    "dependencies": [],
+    "dependents": ["basic_import.b"],
+    "path": "a.py"
+  },
+  "basic_import.b": {
+    "dependencies": ["basic_import.a"],
+    "dependents": [],
+    "path": "b.py"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "multiple_imports": {
+    "dependencies": [],
+    "dependents": [],
+    "path": "__init__.py"
+  },
+  "multiple_imports.a": {
+    "dependencies": [],
+    "dependents": ["multiple_imports.b", "multiple_imports.c"],
+    "path": "a.py"
+  },
+  "multiple_imports.b": {
+    "dependencies": ["multiple_imports.a"],
+    "dependents": ["multiple_imports.c"],
+    "path": "b.py"
+  },
+  "multiple_imports.c": {
+    "dependencies": ["multiple_imports.a", "multiple_imports.b"],
+    "dependents": [],
+    "path": "c.py"
+  }
+}
