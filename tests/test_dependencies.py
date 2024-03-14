@@ -1,9 +1,9 @@
-from pathlib import Path
-from typing import Dict, Tuple
+from pytest_git_diff.dependency_graph.dependencies import get_dependencies
 
-from pytest_git_diff.dependency_graph.dependencies import ModuleDependencyInfo, get_dependencies
+from .conftest import PackageTestCase
 
 
-def test_get_dependencies(package_test_case: Tuple[Path, Dict[str, ModuleDependencyInfo]]) -> None:
-    test_case_package_path, expected_dependencies = package_test_case
-    assert get_dependencies(test_case_package_path) == expected_dependencies
+def test_get_dependencies(package_test_case: PackageTestCase) -> None:
+    assert (
+        get_dependencies(package_test_case.package_path) == package_test_case.expected_dependencies
+    )

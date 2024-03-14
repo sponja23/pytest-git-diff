@@ -78,11 +78,7 @@ class ModuleDependencyInfo:
             entry: A single entry from the pydeps dependency dictionary
 
         Returns:
-            A dictionary with the following keys:
-            - "name": The name of the module
-            - "path": The path to the module, relative to the root of the project
-            - "imports": A list of the modules that the module imports
-            - "imported_by": A list of the modules that import the module
+            A ModuleDependencyInfo object
         """
         return ModuleDependencyInfo(
             name=entry["name"],
