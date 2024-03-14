@@ -136,3 +136,8 @@ dmypy.json
 # editors
 .idea
 .vscode
+
+## Project-specific ignores
+
+# Git repository test cases
+/tests/repo_test_cases/

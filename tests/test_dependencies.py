@@ -1,5 +1,4 @@
 import json
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict
@@ -8,11 +7,7 @@ import pytest
 
 from pytest_git_diff.dependency_graph.dependencies import ModuleDependencyInfo, get_dependencies
 
-TEST_DIRECTORY = Path(os.path.dirname(os.path.realpath(__file__)))
-
-TEST_RUN_DIRECTORY = Path(os.getcwd())
-
-package_test_case_paths = list((TEST_DIRECTORY / "package_test_cases").iterdir())
+from .utils import TEST_DIRECTORY, TEST_RUN_DIRECTORY
 
 
 @dataclass
@@ -63,7 +58,9 @@ class PackageTestCase:
         )
 
 
-package_test_cases = [PackageTestCase.from_path(path) for path in package_test_case_paths]
+package_test_cases = [
+    PackageTestCase.from_path(path) for path in (TEST_DIRECTORY / "package_test_cases").iterdir()
+]
 
 
 @pytest.mark.parametrize("test_case", package_test_cases, ids=lambda p: p.package_path.name)

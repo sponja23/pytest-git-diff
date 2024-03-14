@@ -37,6 +37,10 @@ ignore_missing_imports = true
 module = ["tests.package_test_cases.*"]
 ignore_errors = true
 
+[[tool.mypy.overrides]]
+module = ["tests.repo_test_cases.*"]
+ignore_errors = true
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--cov=pytest_git_diff --cov-report term-missing --no-cov-on-fail"
@@ -48,7 +52,7 @@ exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 line-length = 100
 target-version = "py38"
 fix = true
-extend-exclude = ["tests.package_test_cases.*"]
+extend-exclude = ["tests.package_test_cases.*", "tests.repo_test_cases.*"]
 
 [tool.ruff.lint]
 select = ["E", "F", "UP", "I001", "T201", "T203"]
