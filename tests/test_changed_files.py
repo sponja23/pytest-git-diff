@@ -6,7 +6,7 @@ from typing import List
 
 import pytest
 
-from pytest_git_diff.git_utils.changed_files import get_changed_files
+from pytest_git_diff.changed_files import get_changed_files
 
 from .utils import TEST_DIRECTORY, TEST_RUN_DIRECTORY
 

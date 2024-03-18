@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 import pytest
 
-from pytest_git_diff.dependency_graph.dependencies import ModuleDependencyInfo, get_dependencies
+from pytest_git_diff.dependencies import ModuleDependencyInfo, get_dependencies
 
 from .utils import TEST_DIRECTORY, TEST_RUN_DIRECTORY
 
