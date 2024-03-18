@@ -7,15 +7,17 @@
 
 set -e
 
-# Get the current directory
-DIR="$(cd "$(dirname "$0")" && pwd)"
+# Get the script's directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Get the test cases directory
-TEST_CASES_DIR="$DIR/../tests/repo_test_cases"
+TEST_CASES_DIR="$SCRIPT_DIR/../tests/repo_test_cases"
 
-PREV_PATH=$(pwd)
+# Store the output path
+OUTPUT_PATH=$(realpath "$1")
+
 # Move to the test cases directory
 cd "$TEST_CASES_DIR"
 
 # Zip all the repositories into a single file, in the original directory
-zip -r "$PREV_PATH/$1" .
+zip -r "$OUTPUT_PATH" .

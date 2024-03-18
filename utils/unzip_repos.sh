@@ -7,11 +7,14 @@
 
 set -e
 
-# Get the current directory
-DIR="$(cd "$(dirname "$0")" && pwd)"
+# Get the script's directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Get the test cases directory
-TEST_CASES_DIR="$DIR/../tests/repo_test_cases"
+TEST_CASES_DIR="$SCRIPT_DIR/../tests/repo_test_cases"
+
+# Create the test cases directory if it doesn't exist
+mkdir -p "$TEST_CASES_DIR"
 
 # Get the zip file
 ZIP_FILE="$1"
