@@ -1,3 +1,8 @@
+"""
+Find the files changed in a git repository between 2 revisions, using
+the `git diff` command.
+"""
+
 import subprocess
 from pathlib import Path
 from typing import List, Optional
@@ -46,7 +51,7 @@ def get_changed_files(repo_path: Path, from_rev: str, to_rev: Optional[str]) -> 
         to_rev = "HEAD"
 
     # Get the output of the git command
-    output = call_git_command(repo_path, f"diff --name-status {to_rev} {from_rev}")
+    output = call_git_command(repo_path, f"diff --name-status {from_rev} {to_rev}")
 
     return [
         Path(path_str)
