@@ -20,7 +20,7 @@ class PackageTestCase:
     package_path: Path
     """The path of the package, relative to the directory where the tests are run."""
 
-    expected_dependencies: Dict[str, ModuleDependencyInfo]
+    expected_dependencies: Dict[Path, ModuleDependencyInfo]
     """The expected dependencies of the package.
 
     The keys are the names of the modules, and the values are the expected dependencies of
@@ -28,7 +28,7 @@ class PackageTestCase:
     """
 
     @staticmethod
-    def from_path(path: Path) -> "PackageTestCase":
+    def from_path(test_case_path: Path) -> "PackageTestCase":
         """
         Create a PackageTestCase from a path.
 
@@ -40,20 +40,18 @@ class PackageTestCase:
         Returns:
             A PackageTestCase object.
         """
-        with open(path / "expected_dependencies.json") as f:
+        with open(test_case_path / "expected_dependencies.json") as f:
             expected_dependencies: Dict[str, Any] = json.load(f)
 
-        for name, properties in expected_dependencies.items():
-            # The name is not stored in the JSON file, so we add it here
-            properties["name"] = name
-            # The path should be a Path object, not a string
-            properties["path"] = Path(properties["path"])
+        for path_str, properties in expected_dependencies.items():
+            # The path is not stored in the entries, so we need to add it back
+            properties["path"] = Path(path_str)
 
         return PackageTestCase(
-            package_path=(path / path.name).relative_to(TEST_RUN_DIRECTORY),
+            package_path=(test_case_path / test_case_path.name).relative_to(TEST_RUN_DIRECTORY),
             expected_dependencies={
-                name: ModuleDependencyInfo(**properties)
-                for name, properties in expected_dependencies.items()
+                properties["path"]: ModuleDependencyInfo(**properties)
+                for properties in expected_dependencies.values()
             },
         )
 

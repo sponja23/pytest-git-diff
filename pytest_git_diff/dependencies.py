@@ -89,7 +89,7 @@ class ModuleDependencyInfo:
         )
 
 
-def get_dependencies(project_root: Path) -> Dict[str, ModuleDependencyInfo]:
+def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
     """
     Get the dependencies of the project
 
@@ -97,16 +97,18 @@ def get_dependencies(project_root: Path) -> Dict[str, ModuleDependencyInfo]:
         project_root: The path to the root of the project
 
     Returns:
-        A dictionary mapping module names to their dependency information
+        A dictionary mapping module paths to their dependency information
     """
     dependency_dict = pydeps_dependency_dict(project_root)
 
     absolute_project_root = project_root.resolve()
 
-    return {
-        module_name: ModuleDependencyInfo.from_pydeps_dict_entry(
+    dependency_info = (
+        ModuleDependencyInfo.from_pydeps_dict_entry(
             entry,
             project_root=absolute_project_root,
         )
-        for module_name, entry in dependency_dict.items()
-    }
+        for entry in dependency_dict.values()
+    )
+
+    return {info.path: info for info in dependency_info}
