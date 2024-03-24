@@ -52,7 +52,7 @@ exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 line-length = 100
 target-version = "py38"
 fix = true
-extend-exclude = ["tests.package_test_cases.*", "tests.repo_test_cases.*"]
+extend-exclude = ["tests/package_test_cases/*", "tests/repo_test_cases/*"]
 
 [tool.ruff.lint]
 select = ["E", "F", "UP", "I001", "T201", "T203"]
