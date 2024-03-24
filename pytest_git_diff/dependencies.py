@@ -9,7 +9,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import Any, Dict, List
+from typing import Any, Dict, Set
 
 from pydeps import cli
 from pydeps.pydeps import pydeps
@@ -59,8 +59,8 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
 
 @dataclass
 class ModuleDependencyInfo:
-    dependencies: List[Path]
-    dependents: List[Path]
+    dependencies: Set[Path]
+    dependents: Set[Path]
 
 
 def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
@@ -84,10 +84,10 @@ def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
 
     dependency_info = {
         name_to_path[name]: ModuleDependencyInfo(
-            dependencies=[name_to_path[dep] for dep in entry.get("imports", [])],
-            dependents=[
+            dependencies={name_to_path[dep] for dep in entry.get("imports", [])},
+            dependents={
                 name_to_path[dep] for dep in entry.get("imported_by", []) if dep in name_to_path
-            ],
+            },
         )
         for name, entry in dependency_dict.items()
     }

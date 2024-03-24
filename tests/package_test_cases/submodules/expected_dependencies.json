@@ -1,0 +1,18 @@
+{
+  "__init__.py": {
+    "dependencies": [],
+    "dependents": []
+  },
+  "submodule/__init__.py": {
+    "dependencies": [],
+    "dependents": ["a.py"]
+  },
+  "a.py": {
+    "dependencies": ["submodule/b.py", "submodule/__init__.py"],
+    "dependents": []
+  },
+  "submodule/b.py": {
+    "dependencies": [],
+    "dependents": ["a.py"]
+  }
+}

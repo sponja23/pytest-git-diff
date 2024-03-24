@@ -47,8 +47,8 @@ class PackageTestCase:
             package_path=(test_case_path / test_case_path.name).relative_to(TEST_RUN_DIRECTORY),
             expected_dependencies={
                 Path(path_str): ModuleDependencyInfo(
-                    dependencies=[Path(dep) for dep in properties["dependencies"]],
-                    dependents=[Path(dep) for dep in properties["dependents"]],
+                    dependencies={Path(dep) for dep in properties["dependencies"]},
+                    dependents={Path(dep) for dep in properties["dependents"]},
                 )
                 for path_str, properties in expected_dependencies.items()
             },
