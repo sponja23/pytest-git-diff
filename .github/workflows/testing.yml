@@ -38,6 +38,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
+      with:
+        lfs: true
+    - name: Unzip the repository test cases
+      run: utils/unzip_repos.sh tests/repo_test_cases.zip
     - name: Install Poetry
       run: pipx install poetry
     - name: Configure poetry
