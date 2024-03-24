@@ -26,7 +26,6 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
         A dictionary of the form:
         {
             "module_name": {
-                "bacon": int,
                 "imports"?: List[str],
                 "name": str,
                 "path": str,
@@ -60,33 +59,8 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
 
 @dataclass
 class ModuleDependencyInfo:
-    name: str
-    path: Path
-    dependencies: List[str]
-    dependents: List[str]
-
-    @staticmethod
-    def from_pydeps_dict_entry(
-        entry: Dict[str, Any],
-        *,
-        project_root: Path,
-    ) -> "ModuleDependencyInfo":
-        """
-        Parse a single entry from the pydeps dependency dictionary
-
-        Args:
-            entry: A single entry from the pydeps dependency dictionary
-
-        Returns:
-            A ModuleDependencyInfo object
-        """
-        return ModuleDependencyInfo(
-            name=entry["name"],
-            # Convert the path to be relative to the root of the project
-            path=Path(entry["path"]).relative_to(project_root),
-            dependencies=entry.get("imports", []),
-            dependents=entry.get("imported_by", []),
-        )
+    dependencies: List[Path]
+    dependents: List[Path]
 
 
 def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
@@ -103,12 +77,19 @@ def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
 
     absolute_project_root = project_root.resolve()
 
-    dependency_info = (
-        ModuleDependencyInfo.from_pydeps_dict_entry(
-            entry,
-            project_root=absolute_project_root,
-        )
+    name_to_path = {
+        entry["name"]: Path(entry["path"]).relative_to(absolute_project_root)
         for entry in dependency_dict.values()
-    )
+    }
 
-    return {info.path: info for info in dependency_info}
+    dependency_info = {
+        name_to_path[name]: ModuleDependencyInfo(
+            dependencies=[name_to_path[dep] for dep in entry.get("imports", [])],
+            dependents=[
+                name_to_path[dep] for dep in entry.get("imported_by", []) if dep in name_to_path
+            ],
+        )
+        for name, entry in dependency_dict.items()
+    }
+
+    return dependency_info

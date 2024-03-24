@@ -43,15 +43,14 @@ class PackageTestCase:
         with open(test_case_path / "expected_dependencies.json") as f:
             expected_dependencies: Dict[str, Any] = json.load(f)
 
-        for path_str, properties in expected_dependencies.items():
-            # The path is not stored in the entries, so we need to add it back
-            properties["path"] = Path(path_str)
-
         return PackageTestCase(
             package_path=(test_case_path / test_case_path.name).relative_to(TEST_RUN_DIRECTORY),
             expected_dependencies={
-                properties["path"]: ModuleDependencyInfo(**properties)
-                for properties in expected_dependencies.values()
+                Path(path_str): ModuleDependencyInfo(
+                    dependencies=[Path(dep) for dep in properties["dependencies"]],
+                    dependents=[Path(dep) for dep in properties["dependents"]],
+                )
+                for path_str, properties in expected_dependencies.items()
             },
         )
 
