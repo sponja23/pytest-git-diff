@@ -3,6 +3,7 @@ Find the files changed in a git repository between 2 revisions, using
 the `git diff` command.
 """
 
+import shlex
 import subprocess
 from pathlib import Path
 from typing import List, Optional
@@ -11,10 +12,6 @@ from typing import List, Optional
 def call_git_command(repo_path: Path, command: str) -> str:
     """
     Call a git command and return the output.
-
-    **WARNING**: The `command` string is split by spaces, with no regard for quoting or
-    escaping. This means that commands with spaces or other special characters will not
-    work as expected.
 
     Args:
         repo_path: The path to the repository
@@ -25,7 +22,7 @@ def call_git_command(repo_path: Path, command: str) -> str:
     """
     try:
         return subprocess.run(
-            ["git", "-C", str(repo_path), *command.split()],
+            ["git", "-C", str(repo_path), *shlex.split(command)],
             check=True,
             capture_output=True,
             text=True,
