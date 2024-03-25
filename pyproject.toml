@@ -55,7 +55,7 @@ fix = true
 extend-exclude = ["tests/package_test_cases/*", "tests/repo_test_cases/*"]
 
 [tool.ruff.lint]
-select = ["E", "F", "UP", "I001", "T201", "T203"]
+select = ["E", "F", "UP", "I001", "T203"]
 ignore = [
   # Recommended ignores by ruff when using formatter
   "E501",

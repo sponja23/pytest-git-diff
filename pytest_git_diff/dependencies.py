@@ -45,6 +45,7 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
             **cli.parse_args(
                 [
                     "--no-output",
+                    "--no-dot",
                     f"--only={path.resolve().name}",
                     "--show-deps",
                     f"--deps-output={f.name}",
@@ -93,3 +94,22 @@ def get_dependencies(project_root: Path) -> Dict[Path, ModuleDependencyInfo]:
     }
 
     return dependency_info
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("project_root", type=Path)
+    args = parser.parse_args()
+
+    dependency_info = get_dependencies(args.project_root)
+
+    for module, info in dependency_info.items():
+        print(module)
+        print("  Dependencies:")
+        for dep in info.dependencies:
+            print(f"    {dep}")
+        print("  Dependents:")
+        for dep in info.dependents:
+            print(f"    {dep}")
