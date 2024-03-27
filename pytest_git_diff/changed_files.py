@@ -6,7 +6,7 @@ the `git diff` command.
 import shlex
 import subprocess
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional, Set
 
 
 def call_git_command(repo_path: Path, command: str) -> str:
@@ -31,7 +31,7 @@ def call_git_command(repo_path: Path, command: str) -> str:
         raise RuntimeError(f"Error running git command: {e.stderr}") from e
 
 
-def get_changed_files(repo_path: Path, from_rev: str, to_rev: Optional[str]) -> List[Path]:
+def get_changed_files(repo_path: Path, from_rev: str, to_rev: Optional[str]) -> Set[Path]:
     """
     Get the files changed in the repository between two revisions.
 
@@ -50,8 +50,8 @@ def get_changed_files(repo_path: Path, from_rev: str, to_rev: Optional[str]) -> 
     # Get the output of the git command
     output = call_git_command(repo_path, f"diff --name-status {from_rev} {to_rev}")
 
-    return [
+    return {
         Path(path_str)
         for status, path_str in map(lambda line: line.split("\t"), output.splitlines())
         if status in {"A", "M"}
-    ]
+    }
