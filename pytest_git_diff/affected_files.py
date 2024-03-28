@@ -32,8 +32,6 @@ def get_affected_files(
     # Get the dependencies of the repository files
     dependency_infos = get_dependencies(repo_path)
 
-    print(dependency_infos)
-
     # Get the files changed in the repository between the two revisions
     changed_files = get_changed_files(repo_path, from_rev, to_rev)
 
