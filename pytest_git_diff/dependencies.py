@@ -45,7 +45,6 @@ def pydeps_dependency_dict(path: Path) -> Dict[str, Any]:
             **cli.parse_args(
                 [
                     "--no-output",
-                    "--no-dot",
                     f"--only={path.resolve().name}",
                     "--show-deps",
                     f"--deps-output={f.name}",
