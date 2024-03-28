@@ -48,10 +48,9 @@ def get_changed_files(repo_path: Path, from_rev: str, to_rev: Optional[str]) -> 
         to_rev = "HEAD"
 
     # Get the output of the git command
-    output = call_git_command(repo_path, f"diff --name-status {from_rev} {to_rev}")
+    output = call_git_command(repo_path, f"diff --diff-filter=AM --name-status {from_rev} {to_rev}")
 
     return {
         Path(path_str)
         for status, path_str in map(lambda line: line.split("\t"), output.splitlines())
-        if status in {"A", "M"}
     }
