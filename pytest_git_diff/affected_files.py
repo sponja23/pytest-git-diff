@@ -36,7 +36,7 @@ def get_affected_files(
     changed_files = get_changed_files(repo_path, from_rev, to_rev)
 
     affected_files: Set[Path] = set()
-    stack = list(changed_files)
+    stack = [file for file in changed_files if file in dependency_infos]
 
     while stack:
         file = stack.pop()
