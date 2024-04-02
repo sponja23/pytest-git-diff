@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-git-diff"
-version = "1.0.0"
+version = "1.0.1"
 description = "Pytest plugin that allows the user to select the tests affected by a range of git commits"
 authors = ["sponja23 <tomas.spognardi@gmail.com>"]
 license = "MIT"
