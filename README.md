@@ -1,5 +1,8 @@
 # pytest-git-diff
 
+![Test Workflow Status](https://img.shields.io/github/actions/workflow/status/sponja23/pytest-git-diff/testing.yml)
+![PyPI Version](https://img.shields.io/pypi/v/pytest-git-diff)
+
 Pytest plugin that allows the user to select the tests *affected* by a given range of git commits. A file is considered affected when:
 - It was added/modified in between the commits.
 - It imports another affected file.
