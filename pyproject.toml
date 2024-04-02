@@ -61,6 +61,7 @@ addopts = "--cov=pytest_git_diff --cov-report term-missing --no-cov-on-fail"
 
 [tool.coverage.report]
 exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
+omit = ["pytest_git_diff/plugin.py"]
 
 [tool.ruff]
 line-length = 100
